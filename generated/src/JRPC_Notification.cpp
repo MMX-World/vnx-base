@@ -107,8 +107,6 @@ void JRPC_Notification::set_field(const std::string& _name, const vnx::Variant& 
 		_value.to(method);
 	} else if(_name == "params") {
 		_value.to(params);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

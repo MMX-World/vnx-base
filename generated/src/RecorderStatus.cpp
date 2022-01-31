@@ -137,8 +137,6 @@ void RecorderStatus::set_field(const std::string& _name, const vnx::Variant& _va
 		_value.to(loss_factor);
 	} else if(_name == "header") {
 		_value.to(header);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

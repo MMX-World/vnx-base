@@ -136,8 +136,6 @@ void TimeControl::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(is_paused);
 	} else if(_name == "time_speed") {
 		_value.to(time_speed);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

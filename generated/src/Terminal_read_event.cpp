@@ -88,8 +88,6 @@ vnx::Variant Terminal_read_event::get_field(const std::string& _name) const {
 void Terminal_read_event::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "event") {
 		_value.to(event);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

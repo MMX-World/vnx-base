@@ -88,8 +88,6 @@ vnx::Variant GatewayInterface_forward::get_field(const std::string& _name) const
 void GatewayInterface_forward::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "request") {
 		_value.to(request);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

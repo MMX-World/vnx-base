@@ -117,8 +117,6 @@ void PermissionDenied::set_field(const std::string& _name, const vnx::Variant& _
 		_value.to(method);
 	} else if(_name == "permission") {
 		_value.to(permission);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

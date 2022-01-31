@@ -140,8 +140,6 @@ void LogMsg::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(module);
 	} else if(_name == "message") {
 		_value.to(message);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

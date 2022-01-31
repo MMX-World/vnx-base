@@ -336,8 +336,6 @@ void ProxyBase::set_field(const std::string& _name, const vnx::Variant& _value) 
 		_value.to(send_buffer_size);
 	} else if(_name == "default_access") {
 		_value.to(default_access);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

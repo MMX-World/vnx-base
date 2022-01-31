@@ -87,8 +87,6 @@ vnx::Variant Process_set_debug::get_field(const std::string& _name) const {
 void Process_set_debug::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "level") {
 		_value.to(level);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

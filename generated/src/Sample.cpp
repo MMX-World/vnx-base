@@ -159,8 +159,6 @@ void Sample::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(topic);
 	} else if(_name == "value") {
 		_value.to(value);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

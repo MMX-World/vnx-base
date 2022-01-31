@@ -98,8 +98,6 @@ void ModuleInterface_vnx_set_config::set_field(const std::string& _name, const v
 		_value.to(name);
 	} else if(_name == "value") {
 		_value.to(value);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

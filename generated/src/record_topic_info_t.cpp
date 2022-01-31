@@ -115,8 +115,6 @@ void record_topic_info_t::set_field(const std::string& _name, const vnx::Variant
 		_value.to(num_samples);
 	} else if(_name == "num_samples_lost") {
 		_value.to(num_samples_lost);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

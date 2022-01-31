@@ -87,8 +87,6 @@ vnx::Variant Player_seek_to_position::get_field(const std::string& _name) const 
 void Player_seek_to_position::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "position") {
 		_value.to(position);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

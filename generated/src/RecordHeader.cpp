@@ -189,8 +189,6 @@ void RecordHeader::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(type_code_positions);
 	} else if(_name == "topics") {
 		_value.to(topics);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

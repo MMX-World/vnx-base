@@ -87,8 +87,6 @@ vnx::Variant ModuleInterface_vnx_get_config::get_field(const std::string& _name)
 void ModuleInterface_vnx_get_config::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "name") {
 		_value.to(name);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

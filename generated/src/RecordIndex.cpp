@@ -107,8 +107,6 @@ void RecordIndex::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(next_block);
 	} else if(_name == "index") {
 		_value.to(index);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

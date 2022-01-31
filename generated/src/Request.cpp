@@ -160,8 +160,6 @@ void Request::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(request_id);
 	} else if(_name == "method") {
 		_value.to(method);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

@@ -87,8 +87,6 @@ vnx::Variant Process_get_global_config::get_field(const std::string& _name) cons
 void Process_get_global_config::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "key") {
 		_value.to(key);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

@@ -86,8 +86,6 @@ vnx::Variant RecordPointer::get_field(const std::string& _name) const {
 void RecordPointer::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "position") {
 		_value.to(position);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

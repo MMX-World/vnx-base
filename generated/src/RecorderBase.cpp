@@ -185,8 +185,6 @@ void RecorderBase::set_field(const std::string& _name, const vnx::Variant& _valu
 		_value.to(proxy_name);
 	} else if(_name == "receive_tunnel") {
 		_value.to(receive_tunnel);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

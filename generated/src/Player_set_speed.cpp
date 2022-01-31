@@ -87,8 +87,6 @@ vnx::Variant Player_set_speed::get_field(const std::string& _name) const {
 void Player_set_speed::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "speed") {
 		_value.to(speed);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

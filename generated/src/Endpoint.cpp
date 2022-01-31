@@ -116,8 +116,6 @@ void Endpoint::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(listen_queue_size);
 	} else if(_name == "non_blocking") {
 		_value.to(non_blocking);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

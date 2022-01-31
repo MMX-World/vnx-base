@@ -87,8 +87,6 @@ vnx::Variant Player_seek_by_count::get_field(const std::string& _name) const {
 void Player_seek_by_count::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "delta_count") {
 		_value.to(delta_count);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

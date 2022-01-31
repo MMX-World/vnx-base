@@ -239,8 +239,6 @@ void ModuleInfo::set_field(const std::string& _name, const vnx::Variant& _value)
 		_value.to(remotes);
 	} else if(_name == "type_code") {
 		_value.to(type_code);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

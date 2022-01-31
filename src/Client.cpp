@@ -72,14 +72,19 @@ void Client::vnx_set_non_blocking(bool non_blocking_mode) {
 std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> method, const bool is_async) {
 	std::shared_ptr<Request> request = Request::create();
 	std::shared_ptr<Pipe> service_pipe;
+	Hash64 gateway_addr;
 	{
 		std::lock_guard<std::mutex> lock(vnx_mutex);
 		if(!vnx_service_pipe || vnx_service_pipe->is_closed()) {
 			vnx_service_pipe = get_pipe(vnx_tunnel_addr);
 			connect(vnx_service_pipe, vnx_return_pipe);
 		}
-		service_pipe = vnx_service_pipe;
+		if(vnx_is_non_blocking) {
+			request->flags |= Message::NON_BLOCKING;
+		}
 		request->session = vnx_session_id;
+		service_pipe = vnx_service_pipe;
+		gateway_addr = vnx_gateway_addr;
 	}
 	if(!service_pipe) {
 		if(is_async) {
@@ -94,20 +99,17 @@ std::shared_ptr<const Value> Client::vnx_request(std::shared_ptr<const Value> me
 	if(is_async) {
 		request->flags |= Message::NO_RETURN;
 	}
-	if(vnx_is_non_blocking) {
-		request->flags |= Message::NON_BLOCKING;
-	}
 	request->flags |= Message::BLOCKING;
 	request->request_id = ++vnx_next_id;
 	request->src_mac = vnx_src_mac;
 	request->dst_mac = vnx_service_addr;
 	request->method = method;
 	
-	if(vnx_gateway_addr) {
+	if(gateway_addr) {
 		auto forward = GatewayInterface_forward::create();
 		forward->request = vnx::clone(request);
 		request->flags |= Message::FORWARD;
-		request->dst_mac = vnx_gateway_addr;
+		request->dst_mac = gateway_addr;
 		request->method = forward;
 	}
 	try {

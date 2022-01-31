@@ -224,8 +224,6 @@ void ProcessBase::set_field(const std::string& _name, const vnx::Variant& _value
 		_value.to(log_file_entry_prefix);
 	} else if(_name == "log_file_auto_restart") {
 		_value.to(log_file_auto_restart);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

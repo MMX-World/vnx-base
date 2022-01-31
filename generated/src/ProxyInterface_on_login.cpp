@@ -97,8 +97,6 @@ void ProxyInterface_on_login::set_field(const std::string& _name, const vnx::Var
 		_value.to(name);
 	} else if(_name == "password") {
 		_value.to(password);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

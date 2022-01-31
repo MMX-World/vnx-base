@@ -87,8 +87,6 @@ vnx::Variant Tuple::get_field(const std::string& _name) const {
 void Tuple::set_field(const std::string& _name, const vnx::Variant& _value) {
 	if(_name == "fields") {
 		_value.to(fields);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 

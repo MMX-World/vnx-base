@@ -114,8 +114,6 @@ void Message::set_field(const std::string& _name, const vnx::Variant& _value) {
 		_value.to(flags);
 	} else if(_name == "hop_count") {
 		_value.to(hop_count);
-	} else {
-		throw std::logic_error("no such field: '" + _name + "'");
 	}
 }
 
