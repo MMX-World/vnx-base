@@ -4,13 +4,19 @@
 #ifndef INCLUDE_vnx_TcpEndpoint_HXX_
 #define INCLUDE_vnx_TcpEndpoint_HXX_
 
+#ifdef _MSC_VER
+#include <vnx_base_export.h>
+#else
+#define VNX_BASE_EXPORT
+#endif
+
 #include <vnx/package.hxx>
 #include <vnx/Endpoint.hxx>
 
 
 namespace vnx {
 
-class TcpEndpoint : public ::vnx::Endpoint {
+class VNX_BASE_EXPORT TcpEndpoint : public ::vnx::Endpoint {
 public:
 	static const int32_t default_port = 4444;
 	

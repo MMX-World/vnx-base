@@ -17,13 +17,19 @@
 #ifndef INCLUDE_VNX_TOPICPTR_H_
 #define INCLUDE_VNX_TOPICPTR_H_
 
+#ifdef _MSC_VER
+#include <vnx_base_export.h>
+#else
+#define VNX_BASE_EXPORT
+#endif
+
 #include <vnx/Topic.h>
 
 
 namespace vnx {
 
 /// Wrapper around std::shared_ptr<Topic>
-class TopicPtr : public std::shared_ptr<Topic> {
+class VNX_BASE_EXPORT TopicPtr : public std::shared_ptr<Topic> {
 public:
 	TopicPtr();
 	

@@ -26,6 +26,7 @@
 #include <vnx/thread_priority_e.hxx>
 
 #ifdef _WIN32
+#include <vnx/WinUtils.h>
 #include <winsock2.h>
 #include <windows.h>
 #undef ERROR
@@ -33,7 +34,9 @@
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
 #endif
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <csignal>
 #include <cstdlib>
 #include <set>

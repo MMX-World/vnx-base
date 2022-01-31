@@ -13,8 +13,11 @@
 #include <vnx/JRPC_Success.hxx>
 #include <vnx/JRPC_Failure.hxx>
 
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #ifdef _WIN32
+#include <vnx/WinUtils.h>
 #include <winsock2.h>
 #else
 #include <sys/socket.h>

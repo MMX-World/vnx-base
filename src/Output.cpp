@@ -21,9 +21,13 @@
 #include <cstring>
 #include <sstream>
 #include <cstdlib>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #ifdef _WIN32
 #include <winsock2.h>
+#include <io.h>
+#include <vnx/WinUtils.h>
 #else
 #include <sys/socket.h>
 #endif

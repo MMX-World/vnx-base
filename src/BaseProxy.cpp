@@ -26,8 +26,11 @@
 #include <vnx/SHA256.h>
 #include <vnx/Util.hpp>
 
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #ifdef _WIN32
+#include <vnx/WinUtils.h>
 #include <winsock2.h>
 #else
 #include <sys/socket.h>
