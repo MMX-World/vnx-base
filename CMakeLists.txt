@@ -111,39 +111,33 @@ list(APPEND SRC_FILES
 	src/Gateway.cpp
 	src/RequestQueue.cpp
 )
+set(VNX_LIBRARY_TYPE "SHARED" CACHE STRING "VNX library build type (SHARED;STATIC)")
+set_property(CACHE VNX_LIBRARY_TYPE PROPERTY STRINGS "SHARED;STATIC")
 
-set( VNX_LIBTYPE CACHE STRING "VNX library type" )
-set_property( CACHE VNX_LIBTYPE PROPERTY STRINGS "SHARED;STATIC" )
-
-if(NOT VNX_LIBTYPE)
-	set(VNX_LIBTYPE SHARED)
-endif()
-
-if(${VNX_LIBTYPE} STREQUAL "SHARED") 
-	set(VNX_LIB_NAME vnx_base)
+if(${VNX_LIBRARY_TYPE} STREQUAL "SHARED") 
+	set(VNX_LIBRARY_NAME vnx_base)
 else()
-	set(VNX_LIB_NAME vnx_base_static)
+	set(VNX_LIBRARY_NAME vnx_base_static)
 endif()
 
-# message(STATUS "VNX library type = ${VNX_LIBTYPE}")
-# message(STATUS "VNX library name = ${VNX_LIB_NAME}")
+# message(STATUS "VNX library type = ${VNX_LIBRARY_TYPE}")
+# message(STATUS "VNX library name = ${VNX_LIBRARY_NAME}")
 
-add_library(${VNX_LIB_NAME} ${VNX_LIBTYPE} ${SRC_FILES} )
-
+add_library(${VNX_LIBRARY_NAME} ${VNX_LIBRARY_TYPE} ${SRC_FILES} )
 
 include(GenerateExportHeader)
-GENERATE_EXPORT_HEADER(${VNX_LIB_NAME} BASE_NAME vnx_base)
+GENERATE_EXPORT_HEADER(${VNX_LIBRARY_NAME} BASE_NAME vnx_base)
 
-target_include_directories(${VNX_LIB_NAME}
+target_include_directories(${VNX_LIBRARY_NAME}
 	PUBLIC include generated/include ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_link_libraries(${VNX_LIB_NAME} Threads::Threads)
+target_link_libraries(${VNX_LIBRARY_NAME} Threads::Threads)
 
-target_compile_definitions(${VNX_LIB_NAME} PUBLIC NOGDI NOMINMAX)
+target_compile_definitions(${VNX_LIBRARY_NAME} PUBLIC NOGDI NOMINMAX)
 
-if(${VNX_LIBTYPE} STREQUAL "STATIC") 
-	target_compile_definitions(${VNX_LIB_NAME} PUBLIC VNX_BASE_STATIC_DEFINE)
+if(${VNX_LIBRARY_TYPE} STREQUAL "STATIC") 
+	target_compile_definitions(${VNX_LIBRARY_NAME} PUBLIC VNX_BASE_STATIC_DEFINE)
 endif()
 
 
@@ -155,14 +149,14 @@ if(MSVC)
 	)
 	FetchContent_MakeAvailable(dirent)
 	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
-	target_include_directories(${VNX_LIB_NAME} PUBLIC ${dirent_INCLUDE_DIR})
+	target_include_directories(${VNX_LIBRARY_NAME} PUBLIC ${dirent_INCLUDE_DIR})
 	
-	if(${VNX_LIBTYPE} STREQUAL "SHARED") 
-		set_target_properties(${VNX_LIB_NAME} PROPERTIES ENABLE_EXPORTS ON)
-		set_target_properties(${VNX_LIB_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+	if(${VNX_LIBRARY_TYPE} STREQUAL "SHARED") 
+		set_target_properties(${VNX_LIBRARY_NAME} PROPERTIES ENABLE_EXPORTS ON)
+		set_target_properties(${VNX_LIBRARY_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 	endif()
 
-	target_link_libraries(${VNX_LIB_NAME} ws2_32)
+	target_link_libraries(${VNX_LIBRARY_NAME} ws2_32)
 endif()
 
 if(VNX_BUILD_TESTS)
