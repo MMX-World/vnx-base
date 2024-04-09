@@ -112,28 +112,40 @@ list(APPEND SRC_FILES
 	src/RequestQueue.cpp
 )
 
-add_library(vnx_base SHARED
-	${SRC_FILES}
-)
-add_library(vnx_base_static STATIC
-	${SRC_FILES}
-)
+set( VNX_LIBTYPE CACHE STRING "VNX library type" )
+set_property( CACHE VNX_LIBTYPE PROPERTY STRINGS "SHARED;STATIC" )
+
+if(NOT VNX_LIBTYPE)
+	set(VNX_LIBTYPE SHARED)
+endif()
+
+if(${VNX_LIBTYPE} STREQUAL "SHARED") 
+	set(VNX_LIB_NAME vnx_base)
+else()
+	set(VNX_LIB_NAME vnx_base_static)
+endif()
+
+# message(STATUS "VNX library type = ${VNX_LIBTYPE}")
+# message(STATUS "VNX library name = ${VNX_LIB_NAME}")
+
+add_library(${VNX_LIB_NAME} ${VNX_LIBTYPE} ${SRC_FILES} )
+
 
 include(GenerateExportHeader)
-GENERATE_EXPORT_HEADER(vnx_base)
+GENERATE_EXPORT_HEADER(${VNX_LIB_NAME} BASE_NAME vnx_base)
 
-target_include_directories(vnx_base
-	PUBLIC include generated/include ${CMAKE_CURRENT_BINARY_DIR}
-)
-target_include_directories(vnx_base_static
+target_include_directories(${VNX_LIB_NAME}
 	PUBLIC include generated/include ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-target_link_libraries(vnx_base Threads::Threads)
-target_link_libraries(vnx_base_static Threads::Threads)
+target_link_libraries(${VNX_LIB_NAME} Threads::Threads)
 
-target_compile_definitions(vnx_base PUBLIC NOGDI NOMINMAX)
-target_compile_definitions(vnx_base_static PUBLIC NOGDI NOMINMAX VNX_BASE_STATIC_DEFINE)
+target_compile_definitions(${VNX_LIB_NAME} PUBLIC NOGDI NOMINMAX)
+
+if(${VNX_LIBTYPE} STREQUAL "STATIC") 
+	target_compile_definitions(${VNX_LIB_NAME} PUBLIC VNX_BASE_STATIC_DEFINE)
+endif()
+
 
 if(MSVC)
 	include(FetchContent)
@@ -143,14 +155,14 @@ if(MSVC)
 	)
 	FetchContent_MakeAvailable(dirent)
 	set(dirent_INCLUDE_DIR ${dirent_SOURCE_DIR}/include)
-	target_include_directories(vnx_base PUBLIC ${dirent_INCLUDE_DIR})
-	target_include_directories(vnx_base_static PUBLIC ${dirent_INCLUDE_DIR})
+	target_include_directories(${VNX_LIB_NAME} PUBLIC ${dirent_INCLUDE_DIR})
 	
-	set_target_properties(vnx_base PROPERTIES ENABLE_EXPORTS ON)
-	set_target_properties(vnx_base PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
-	
-	target_link_libraries(vnx_base ws2_32)
-	target_link_libraries(vnx_base_static ws2_32)
+	if(${VNX_LIBTYPE} STREQUAL "SHARED") 
+		set_target_properties(${VNX_LIB_NAME} PROPERTIES ENABLE_EXPORTS ON)
+		set_target_properties(${VNX_LIB_NAME} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+	endif()
+
+	target_link_libraries(${VNX_LIB_NAME} ws2_32)
 endif()
 
 if(VNX_BUILD_TESTS)
@@ -172,8 +184,7 @@ endif()
 install(DIRECTORY include/vnx generated/include/vnx DESTINATION include)
 install(DIRECTORY interface/ modules/ DESTINATION interface/vnx)
 
-install(TARGETS vnx_base DESTINATION lib${LIBSUFFIX})
-install(TARGETS vnx_base_static DESTINATION lib${LIBSUFFIX})
+install(TARGETS ${LIB_NAME} DESTINATION lib${LIBSUFFIX})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/vnx_base_export.h DESTINATION include)
 
