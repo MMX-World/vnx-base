@@ -178,7 +178,7 @@ endif()
 install(DIRECTORY include/vnx generated/include/vnx DESTINATION include)
 install(DIRECTORY interface/ modules/ DESTINATION interface/vnx)
 
-install(TARGETS ${LIB_NAME} DESTINATION lib${LIBSUFFIX})
+install(TARGETS ${VNX_LIBRARY_NAME} DESTINATION lib${LIBSUFFIX})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/vnx_base_export.h DESTINATION include)
 
