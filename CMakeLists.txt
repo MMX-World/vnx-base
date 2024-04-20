@@ -151,6 +151,8 @@ if(MSVC)
 	
 	target_link_libraries(vnx_base ws2_32)
 	target_link_libraries(vnx_base_static ws2_32)
+
+	set_target_properties(vnx_base_static PROPERTIES EXCLUDE_FROM_ALL 1 EXCLUDE_FROM_DEFAULT_BUILD 1)
 endif()
 
 if(VNX_BUILD_TESTS)
